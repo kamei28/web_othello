@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "wasm:build": "cd othello_core && wasm-pack build --target nodejs --release", 
+    "start": "npm run wasm:build && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
