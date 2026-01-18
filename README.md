@@ -48,4 +48,4 @@ Open index.html in your browser.
 
 - Rust is only required when rebuilding the WebAssembly module.
 
-- The game currently supports one match (2 players) at a time.
+~~ - The game currently supports one match (2 players) at a time.~~
