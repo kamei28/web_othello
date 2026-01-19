@@ -6,6 +6,16 @@
 
 use wasm_bindgen::prelude::*;
 
+// 色判別
+#[wasm_bindgen]
+pub fn next_turn(counter: u8) -> String {
+    if counter & 0x1 == 0 {
+        "black".to_string()
+    } else {
+        "white".to_string()
+    }
+}
+
 // ボード作成
 #[wasm_bindgen]
 pub fn put_stone(board: Vec<u64>, loc: u8) -> Vec<u64> {

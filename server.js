@@ -33,18 +33,32 @@ ws_server.on("connection", socket => {
         console.log(`\rReceved: ${data}`);
 
         let json = fn.json_parse(data);
-        let res = [];
+        let res = {
+            state: null, 
+            color: wasm.next_turn(counter)
+        }, rev_locs = [];
 
         if (!json) {
             // 伝送エラー？
             
         } else if (json.type == "click" && typeof(json.loc) == "number") {
-            board = wasm.put_stone(board, json.loc);
-            res = wasm.legalize(board, json.loc);
+            board = wasm.put_stone(board, json.loc, counter);
+            
+            // 合法手なら反転する石を算出
+            if (board) {
+                rev_locs = wasm.legalize(board, json.loc);
+                res.state = "ok";
+                counter++;
+
+            // 非合法手なら赤表示
+            } else {
+                res.state = "ng";
+            }
+
             console.log(board, res);
         }
 
-        // socket.send(res);
+        socket.send(JSON.stringify(res));
 
         // socket.send(JSON.stringify({
         //     state: "ok" | "ng", 
